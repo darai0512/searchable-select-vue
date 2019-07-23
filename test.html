@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>Searchable Select</title>
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <style type="text/css">
+  .form-select:after {
+    position:absolute;
+    right:17px;
+    top:50%;
+    content:'';
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 10px 5px 0 5px;
+    border-color: #99a0b0 transparent transparent transparent;
+    margin-top:-5px;
+  }
+  </style>
+<body>
+  <div id="searchable-select"></div>
+  <script type="module">
+    import SearchableSelect from './SearchableSelect.js';
+    Vue.config.devtools = true;
+    new Vue({
+      el: '#searchable-select',
+      render: (createElement) => createElement(SearchableSelect, {
+        class: {
+          'form-select': true,
+        },
+        props: {
+          placeholder: 'try me',
+          options: [
+            {value: 'test', text: 'test'},
+            {value: 'test2', text: 'これはtestです'},
+            {value: 'test3', text: 'test / テスト / てすと / TEST'},
+            {value: 'test4', text: 'これはてすとです'},
+            {value: 'test5', text: 'これはテストです'},
+          ],
+        },
+      }),
+    });
+  </script>
