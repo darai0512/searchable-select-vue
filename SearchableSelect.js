@@ -89,7 +89,7 @@ export default {
     optionText: {type: [String, Function], default: 'text', required: false},
     optionValue: {type: String, default: 'value', required: false},
     placeholder: {type: String, default: '', required: false},
-    style: {type: Object, default: {}, required: false},
+    styles: {type: Object, default: {}, required: false},
     value: {type: [String, Number, Boolean, Date], default: null, required: false},
   },
   computed: {
@@ -109,8 +109,8 @@ export default {
       return typeof this.optionText === 'function' ? this.optionText : (v) => v[this.optionText];
     },
     styler() {
-      const style = Object.assign({}, defaultStyle, this.style);
-      if (this.style === null) {
+      const style = Object.assign({}, defaultStyle, this.styles);
+      if (this.styles === null) {
         for (const selector of Object.keys(style)) style[selector] = null;
       } else {
         style['li.pointed'] = Object.assign({}, style.li, style['li.pointed']);

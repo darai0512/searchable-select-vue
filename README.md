@@ -18,5 +18,5 @@
 |optionText|[String, Function]| 'text'|optionsの要素がObjectの場合の表示文字列のkey, または生成用Function|
 |optionValue|String| 'value'|optionsの要素がObjectの場合のvalueのkey|
 |placeholder|String| ''|inputフィールドのプレイスホルダー|
-|style|Object|{}|デフォルトのstyleを上書きする|
+|styles|Object|{}|styleを上書きする。key=selector,value=CSSのオブジェクト(ex, `{input: {width:'100%'}}`)。nullを渡すとデフォルトのstyleを全て削除|
 |value|[String, Number, Boolean, Date]|null|初期値(表示文字列に自動変換)|
