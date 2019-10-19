@@ -7,6 +7,16 @@
 </searchable-select>
 ```
 
+in `<script>`
+
+```
+import SearchableSelect from 'searchable-select-vue';
+// Note that it is the runtime-only build of Vue.
+
+// if you use raw SFC, import the following one.
+// import SearchableSelect from 'searchable-select-vue/SearchableSelect.vue';
+```
+
 ## Props
 
 |name|type|default|desc|
