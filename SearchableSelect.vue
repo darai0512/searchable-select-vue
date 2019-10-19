@@ -1,3 +1,37 @@
+<template>
+  <div :style="styler.div">
+    <input tabindex="0"
+           type="text"
+           :disabled="disabled"
+           :value="searchString"
+           :placeholder="placeholder"
+           :style="styler.input"
+           @input="input"
+           @compositionstart="isComposing = true"
+           @compositionend="compositionEnd"
+           @click="show"
+           @focus="show"
+           @blur="blur"
+           @keyup.esc="close"
+           @keydown.enter.prevent="enter"
+           @keydown.up="prev"
+           @keydown.down="next"
+    />
+    <ul :style="styler.ul" ref="ssUl" v-if="!disabled && showOptionsState">
+      <li v-for="(option, index) in filteredOptions"
+          :style="pointer === index ? styler['li.pointed'] : styler.li"
+          :key="'ss-option-'+index"
+          :value="option[optionValue]"
+          @click.stop.prevent="select(option)"
+          @mousedown="select(option)"
+          @mouseenter="pointer = index"
+      >
+        {{ getText(option) }}
+      </li>
+    </ul>
+  </div>
+</template>
+<script>
 const defaultStyle = {
   div: {
     display: 'inline-block',
@@ -36,38 +70,6 @@ const defaultStyle = {
   },
 };
 export default {
-  template: `
-<div :style="styler.div">
-  <input tabindex="0"
-         type="text"
-         :disabled="disabled"
-         :value="searchString"
-         :placeholder="placeholder"
-         :style="styler.input"
-         @input="input"
-         @compositionstart="isComposing = true"
-         @compositionend="compositionEnd"
-         @click="show"
-         @focus="show"
-         @blur="blur"
-         @keyup.esc="close"
-         @keydown.enter.prevent="enter"
-         @keydown.up="prev"
-         @keydown.down="next"
-  />
-  <ul :style="styler.ul" ref="ssUl" v-if="!disabled && showOptionsState">
-    <li v-for="(option, index) in filteredOptions"
-        :style="pointer === index ? styler['li.pointed'] : styler.li"
-        :key="'ss-option-'+index"
-        :value="option[optionValue]"
-        @click.stop.prevent="select(option)"
-        @mousedown="select(option)"
-        @mouseenter="pointer = index"
-    >
-      {{ getText(option) }}
-    </li>
-  </ul>
-</div>`,
   data() {
     return {
       isComposing: false,
@@ -198,3 +200,4 @@ export default {
     }
   },
 };
+</script>

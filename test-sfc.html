@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>SearchableSelect</title>
+  <title>SearchableSelect SFC</title>
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="https://unpkg.com/http-vue-loader"></script>
   <style type="text/css">
   .form-select:after {
     position:absolute;
@@ -27,13 +28,24 @@
   <a href="https://github.com/darai0512/searchable-select-vue" style="position: absolute; right: 0; top: 0;">
     <img src="https://camo.githubusercontent.com/652c5b9acfaddf3a9c326fa6bde407b87f7be0f4/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f72696768745f6f72616e67655f6666373630302e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_right_orange_ff7600.png">
   </a>
-  <div id="searchable-select"></div>
-  <script type="module">
-    import SearchableSelect from './SearchableSelect.js';
+  <div id="app"></div>
+  <script>
     Vue.config.devtools = true;
+    httpVueLoader.httpRequest = function(url) {
+      return fetch(url).then((res) => {
+        return res.text();
+      }).then((text) => {
+        return text.replace('export default', 'module.exports =');
+      }).catch((err) => {
+        return Promise.reject(err.status);
+      });
+    }
     new Vue({
-      el: '#searchable-select',
-      render: (createElement) => createElement(SearchableSelect, {
+      el: '#app',
+      components: {
+        'searchable-select': httpVueLoader('SearchableSelect.vue')
+      },
+      render: (createElement) => createElement('searchable-select', {
         class: {
           'form-select': true,
         },
